@@ -13,7 +13,7 @@
             開始留下些什麼吧
         </p>
         <p>
-            <a class="btn btn-lg btn-secondary" href="#" role="button">馬上註冊</a>
+            <a class="btn btn-lg btn-secondary" href="{{ route('signup') }}" role="button">馬上註冊</a>
         </p>
     </div>
 @stop
