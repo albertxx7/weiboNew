@@ -1,16 +1,23 @@
 <!DOCTYPE html>
- <html>
-   <head>
-     <title>@yield('title', 'Weibo') 微聊</title>
-     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-   </head>
-   <body>
+<html>
+
+<head>
+    <title>@yield('title', 'Weibo') 微聊</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <script src="{{ mix('js/app.js') }}"></script>
+</head>
+
+<body>
+
     @include('layouts._header')
-     <div class="container">
-      <div class="offset-md-1 col-md-10">
-        @yield('content')
+    <div class="container">
+        <div class=" col-md-12">
+            @yield('content')
+        </div>
         @include('layouts._footer')
-      </div>
-     </div>
-   </body>
- </html>
+    </div>
+
+</body>
+
+</html>
