@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav jsutify-content-end">
                 <li class="nav-item"><a class="nav-link" href="{{ route('help') }}">幫助指南</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('signup') }}">登入</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">登入</a></li>
             </ul>
         </div>
     </div>
