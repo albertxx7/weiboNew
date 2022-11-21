@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('title', '註冊')
+@section('title', '注册')
 
 @section('content')
     <div class="offset-md-2 col-md-8">
@@ -9,6 +9,8 @@
             </div>
             <div class="card-body">
                 <form method="POST" action="{{ route('users.store') }}">
+                    {{ csrf_field() }}
+
                     <div class="mb-3">
                         <label for="name">名稱：</label>
                         <input type="text" name="name" class="form-control" value="{{ old('name') }}">
