@@ -19,14 +19,17 @@ class SessionsController extends Controller
             'password' => 'required'
         ]);
 
-        if (Auth::attempt($credentials)) {
-            session()->flash('success', '歡迎回來！！');
+        if (Auth::attempt($credentials, $request->has('remember'))) {
+            session()->flash('success', '歡迎回來！');
             return redirect()->route('users.show', [Auth::user()]);
         } else {
-            session()->flash('danger', '很抱歉，密碼跟信箱不符合');
+            session()->flash('danger', '很抱歉，您的郵箱和密碼不匹配
+            ');
             return redirect()->back()->withInput();
         }
     }
+
+
 
     public function destroy()
     {
