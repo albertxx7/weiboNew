@@ -149,8 +149,14 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'email' => [
+            'required' => '信箱地址不能空白！',
+        ],
+        'name' => [
+            'required' => '名稱不得空白！',
+        ],
+        'password' => [
+            'required' => '密碼需大於8碼！',
         ],
     ],
 
@@ -165,6 +171,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => '名稱',
+        'email' => '信箱',
+        'password' => '密碼',
+    ],
 
 ];
