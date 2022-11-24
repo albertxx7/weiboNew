@@ -13,6 +13,10 @@
                     </a>
                 </div>
             @endforeach
+            <div class="mt-3">
+                {!! $users->render() !!}
+            </div>
         </div>
+
     </div>
 @stop
