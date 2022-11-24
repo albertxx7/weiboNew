@@ -67,4 +67,10 @@ class UsersController extends Controller
     {
         $this->middleware('auth', ['expect' => ['show', 'creat', 'store']]);
     }
+
+    public function index()
+    {
+        $users = User::all();
+        return view('users.index', compact('users'));
+    }
 }
