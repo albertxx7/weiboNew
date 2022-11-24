@@ -23,7 +23,7 @@ class UsersController extends Controller
         $this->validate($request, [
             'name' => 'required|max:50',
             'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|confirmed|min:6'
+            'password' => 'nullable|confirmed|min:6'
         ]);
 
         $user = User::create([
@@ -35,5 +35,36 @@ class UsersController extends Controller
         Auth::login($user);
         session()->flash('success', '歡迎，在這裡開始你的旅程！');
         return redirect()->route('users.show', [$user]);
+    }
+
+    public function edit(User $user)
+    {
+        $this->authorize('update', $user);
+        return view('users.edit', compact('user'));
+    }
+
+    public function update(User $user, Request $request)
+    {
+        $this->authorize('update', $user);
+        $this->validate($request, [
+            'name' => 'required|max:50',
+            'password' => 'nullable|confirmed|min:6'
+        ]);
+
+        $data = [];
+        $data['name'] = $request->name;
+        if (trim($request->password)) {
+            $data['password'] = bcrypt($request->password);
+
+            $user->update($data);
+        }
+        session()->flash('success', '個人資料更新成功！');
+
+        return redirect()->route('users.show', $user);
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['expect' => ['show', 'creat', 'store']]);
     }
 }
