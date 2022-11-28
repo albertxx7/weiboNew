@@ -38,16 +38,4 @@ class SessionsController extends Controller
         session()->flash('success', '您已成功登出！');
         return redirect('login');
     }
-    //只讓未登錄用戶訪問登入頁面
-    public function __construct()
-
-    {
-        $this->middleware('auth', [
-            'except' => ['show', 'create', 'store']
-        ]);
-
-        $this->middleware('guest', [
-            'only' => ['create']
-        ]);
-    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Console\View\Components\Alert;
 use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
@@ -66,11 +67,26 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['show', 'create', 'store']]);
+        //只讓未登錄用戶訪問登入頁面
+        $this->middleware('auth', [
+            'except' => ['show', 'create', 'store']
+        ]);
+
+        $this->middleware('guest', [
+            'only' => ['create']
+        ]);
     }
 
     public function index()
     {
         $users = User::paginate(10);
         return view('users.index', compact('users'));
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        session()->flash('success', '成功删除用户！');
+        return back();
     }
 }
