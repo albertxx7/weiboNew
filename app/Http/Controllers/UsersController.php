@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Console\View\Components\Alert;
@@ -33,10 +34,13 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        Auth::login($user);
-        session()->flash('success', '歡迎，在這裡開始你的旅程！');
-        return redirect()->route('users.show', [$user]);
+        $this->sendEmailConfirmationTo($user);
+        session()->flash('success', '驗證郵件已發送到你的註冊郵箱上，請注意查收。');
+        return redirect('/');
     }
+
+
+
 
     public function edit(User $user)
     {
@@ -66,15 +70,30 @@ class UsersController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['show', 'create', 'store', 'index']]);
-        //只讓未登錄用戶訪問登入頁面
         $this->middleware('auth', [
-            'except' => ['show', 'create', 'store']
+            'except' => ['show', 'create', 'store', 'index', 'confirmEmail']
         ]);
+        // //只讓未登錄用戶訪問登入頁面
+        // $this->middleware('auth', [
+        //     'except' => ['show', 'create', 'store']
+        // ]);
 
-        $this->middleware('guest', [
-            'only' => ['create']
-        ]);
+        // $this->middleware('guest', [
+        //     'only' => ['create']
+        // ]);
+    }
+
+    public function confirmEmail($token)
+    {
+        $user = User::where('activation_token', $token)->firstOrFail();
+
+        $user->activated = true;
+        $user->activation_token = null;
+        $user->save();
+
+        Auth::login($user);
+        session()->flash('success', '恭喜你，驗證成功！');
+        return redirect()->route('users.show', [$user]);
     }
 
     public function index()
@@ -88,5 +107,19 @@ class UsersController extends Controller
         $user->delete();
         session()->flash('success', '成功删除用户！');
         return back();
+    }
+
+    protected function sendEmailConfirmationTo($user)
+    {
+        $view = 'emails.confirm';
+        $data = compact('user');
+        $from = 'summer@example.com';
+        $name = 'Summer';
+        $to = $user->email;
+        $subject = "感謝註冊 ！請確認你的郵箱。";
+
+        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
+            $message->from($from, $name)->to($to)->subject($subject);
+        });
     }
 }
