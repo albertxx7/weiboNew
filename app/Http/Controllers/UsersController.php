@@ -66,7 +66,7 @@ class UsersController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['show', 'create', 'store']]);
+        $this->middleware('auth', ['except' => ['show', 'create', 'store', 'index']]);
         //只讓未登錄用戶訪問登入頁面
         $this->middleware('auth', [
             'except' => ['show', 'create', 'store']
