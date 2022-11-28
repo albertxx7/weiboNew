@@ -36,6 +36,7 @@
                 <hr>
 
                 <p>還沒帳號？<a href="{{ route('signup') }}">現在註冊！</a></p>
+                <p>忘記密碼？<a href="{{ route('password.request') }}">忘記密碼?</a></p>
             </div>
         </div>
     </div>
