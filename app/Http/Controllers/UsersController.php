@@ -73,14 +73,6 @@ class UsersController extends Controller
         $this->middleware('auth', [
             'except' => ['show', 'create', 'store', 'index', 'confirmEmail']
         ]);
-        // //只讓未登錄用戶訪問登入頁面
-        // $this->middleware('auth', [
-        //     'except' => ['show', 'create', 'store']
-        // ]);
-
-        // $this->middleware('guest', [
-        //     'only' => ['create']
-        // ]);
     }
 
     public function confirmEmail($token)
