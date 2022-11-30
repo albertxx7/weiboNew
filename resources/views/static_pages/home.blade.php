@@ -7,6 +7,9 @@
                 <section class="status_form">
                     @include('shared._status_form')
                 </section>
+                <h4>貼文列表</h4>
+                <hr>
+                @include('shared._feed')
             </div>
             <aside class="col-md-4">
                 <section class="user_info">
@@ -16,12 +19,15 @@
         </div>
     @else
         <div class="bg-light p-3 p-sm-5 rounded text-center">
-            <h1 class="mb-4 fw-bolder"> Guten Tag!</h1>
+            <h1 class="fw-bolder">Guten Tag</h1>
+            <p class="lead">
+
+            </p>
             <p>
                 分享，讓世界更美好
             </p>
             <p>
-                <a class="btn btn-lg btn-info" href="{{ route('signup') }}" role="button">馬上註冊</a>
+                <a class="btn btn-xl btn-success" href="{{ route('signup') }}" role="button">現在註冊</a>
             </p>
         </div>
     @endif
