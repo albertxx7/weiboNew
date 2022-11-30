@@ -26,4 +26,12 @@ class StatusesController extends Controller
         session()->flash('success', '發布成功!！');
         return redirect()->back();
     }
+
+    public function destroy(Status $status)
+    {
+        $this->authorize('destroy', $status);
+        $status->delete();
+        session()->flash('success', '貼文已刪除！');
+        return redirect()->back();
+    }
 }
